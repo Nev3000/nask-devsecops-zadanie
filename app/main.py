@@ -1,7 +1,9 @@
-from fastapi import FastAPI, HTTPException, Query
-from app.data import generate_devices, devices_db
-from app.models import Device, DeviceCreate
 import logging
+
+from fastapi import FastAPI, HTTPException, Query
+
+from app.data import devices_db, generate_devices
+from app.models import Device, DeviceCreate
 
 logging.basicConfig(
     level=logging.INFO,

@@ -1,7 +1,9 @@
-from faker import Faker
-from app.models import Device, DeviceStatus
 import random
 from collections import Counter
+
+from faker import Faker
+
+from app.models import Device, DeviceStatus
 
 fake = Faker("pl_PL")
 devices_db: dict[int, Device] = {}
