@@ -22,3 +22,12 @@ jobs:
 
       - name: Lint with ruff
         run: ruff check .
+
+      - name: Security scan with Bandit
+        run: bandit -r app/ -f json -o bandit-report.json || true
+
+      - name: Upload Bandit report
+        uses: actions/upload-artifact@v4
+        with:
+          name: bandit-report
+          path: bandit-report.json
