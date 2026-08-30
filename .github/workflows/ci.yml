@@ -34,14 +34,15 @@ jobs:
       - name: Build Docker image
         run: docker build -t nask-devices-api:${{ github.sha }} .
 
-      - name: Scan image with Trivy
+      - name: Scan image with Trivy (Quality Gate)
         uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: nask-devices-api:${{ github.sha }}
           format: 'json'
           output: 'trivy-report.json'
-          severity: 'HIGH,CRITICAL'
-          exit-code: '0'
+          severity: 'CRITICAL'
+          ignore-unfixed: true
+          exit-code: '1'
 
       - name: Upload Trivy report
         uses: actions/upload-artifact@v4
