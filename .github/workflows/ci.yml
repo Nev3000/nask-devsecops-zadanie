@@ -31,3 +31,20 @@ jobs:
         with:
           name: bandit-report
           path: bandit-report.json
+      - name: Build Docker image
+        run: docker build -t nask-devices-api:${{ github.sha }} .
+
+      - name: Scan image with Trivy
+        uses: aquasecurity/trivy-action@0.24.0
+        with:
+          image-ref: nask-devices-api:${{ github.sha }}
+          format: 'json'
+          output: 'trivy-report.json'
+          severity: 'HIGH,CRITICAL'
+          exit-code: '0'
+
+      - name: Upload Trivy report
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-report
+          path: trivy-report.json
